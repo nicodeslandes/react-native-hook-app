@@ -7,8 +7,8 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, {Component, useState} from 'react';
+import {TouchableHighlight, Platform, StyleSheet, Text, View} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -17,17 +17,22 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <View style={styles.container}>
+      <Text>Current count: {count}</Text>
+      <TouchableHighlight style={styles.button}
+              onPress={() => setCount(count + 1)}>
+        <Text style={styles.buttonText}>Increment</Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.button}
+              onPress={() => setCount(count - 1)}>
+        <Text style={styles.buttonText}>Decrement</Text>
+      </TouchableHighlight>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -37,14 +42,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  button: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: 'darkcyan'
+  },
+  buttonText: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
